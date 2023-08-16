@@ -23,7 +23,7 @@ const AddComment = (props) => {
 
     const submitCommentHandler = (e) => {
         e.preventDefault()
-        fetch(`/create_comment`, {
+        fetch(`/api/create_comment`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

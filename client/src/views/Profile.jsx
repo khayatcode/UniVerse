@@ -41,12 +41,12 @@ const Profile = (props) => {
         return navigate('/login')
     }
   Promise.all([
-    fetch(`/get_user/${userId}`),
-    fetch('/get_all_posts_by_user/' + userId),
-    fetch(`/get_all_follows/${userId}`),
-    fetch(`/get_all_follows/${sessionId}`),
-    fetch(`/get_all_followers/${userId}`),
-    fetch(`/get_all_users_like_post/${sessionId}`),
+    fetch(`/api/get_user/${userId}`),
+    fetch('/api/get_all_posts_by_user/' + userId),
+    fetch(`/api/get_all_follows/${userId}`),
+    fetch(`/api/get_all_follows/${sessionId}`),
+    fetch(`/api/get_all_followers/${userId}`),
+    fetch(`/api/get_all_users_like_post/${sessionId}`),
   ])
   .then(responses => Promise.all(responses.map(response => response.json())))
   .then(data => {
@@ -67,8 +67,8 @@ const Profile = (props) => {
     // create a useEffect, everytime you setLoggedInUserFollows, you update the state of allFollowers
     useEffect(() => {
         Promise.all([
-            fetch(`/get_all_followers/${userId}`),
-            fetch(`/get_all_follows/${userId}`)
+            fetch(`/api/get_all_followers/${userId}`),
+            fetch(`/api/get_all_follows/${userId}`)
         ])
         .then(responses => Promise.all(responses.map(response => response.json())))
         .then(data => {
@@ -80,7 +80,7 @@ const Profile = (props) => {
     }, [loggedInUserFollows])
 
     useEffect(() => {
-        fetch('/get_all_posts_by_user/' + userId)
+        fetch('/api/get_all_posts_by_user/' + userId)
         .then(response => response.json())
         .then(data => {
             setAllPosts(data)

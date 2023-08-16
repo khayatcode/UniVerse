@@ -32,7 +32,7 @@ const CreatePost = (props) => {
         formData.append('likes', postInfo.likes)
         formData.append('user_id', postInfo.user_id)
         formData.append('creator', postInfo.creator)
-        fetch("/create_post", {
+        fetch("/api/create_post", {
             method: "POST",
             body: formData
         })

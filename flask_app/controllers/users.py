@@ -21,7 +21,7 @@ UPLOAD_FOLDER = os.path.join(os.getcwd(), 'uploads')
 def uploaded_file(filename):
     return send_from_directory(UPLOAD_FOLDER, filename)
 
-@app.route('/register', methods=['POST'])
+@app.route('/api/register', methods=['POST'])
 def register():
     errors = User.validate_user(request.form)
     if errors:
@@ -50,7 +50,7 @@ def register():
     user = User.save(data)
     return jsonify({'success': True, 'user_id': user}), 200
 
-@app.route('/login', methods=['POST'])
+@app.route('/api/login', methods=['POST'])
 def login():
     data = {"email": request.json['email']}
     user_in_db = User.get_by_email(data)
@@ -61,7 +61,7 @@ def login():
         return jsonify({'success': False, 'message': 'Incorrect password'}), 400
     return jsonify({'success': True, 'user': user_in_db.to_dict()}), 200
 
-@app.route('/update_user/<int:user_id>', methods=['POST'])
+@app.route('/api/update_user/<int:user_id>', methods=['POST'])
 def update_user(user_id):
     errors = User.validate_edit(request.json)
     if errors:
@@ -79,7 +79,7 @@ def update_user(user_id):
 
 
 
-@app.route('/get_user/<int:id>')
+@app.route('/api/get_user/<int:id>')
 def get_user(id):
     data = {
         "id": id
@@ -88,7 +88,7 @@ def get_user(id):
     return jsonify(user), 200
 
 # follow a user
-@app.route('/follow_user', methods=['POST'])
+@app.route('/api/follow_user', methods=['POST'])
 def follow_user():
     data = {
         "user_id": request.json['user_id'],
@@ -100,7 +100,7 @@ def follow_user():
     return jsonify({'success': True, 'follow': follow}), 200
 
 # unfollow a user
-@app.route('/unfollow', methods=['POST'])
+@app.route('/api/unfollow', methods=['POST'])
 def unfollow():
     data = {
         "user_id": request.json['user_id'],
@@ -112,7 +112,7 @@ def unfollow():
     return jsonify({'success': True, 'follow': follow}), 200
 
 # get all follows
-@app.route('/get_all_follows/<int:id>')
+@app.route('/api/get_all_follows/<int:id>')
 def get_all_follows(id):
     data = {
         "user_id": id
@@ -123,7 +123,7 @@ def get_all_follows(id):
     return jsonify([follow.to_json() for follow in follows]), 200
 
 # get all followers
-@app.route('/get_all_followers/<int:user_id>')
+@app.route('/api/get_all_followers/<int:user_id>')
 def get_all_followers(user_id):
     data = {
         "user_id": user_id
@@ -134,7 +134,7 @@ def get_all_followers(user_id):
     return jsonify([follower.to_json() for follower in followers]), 200
 
 # get all users like a post
-@app.route('/get_all_users_like_post/<int:user_id>')
+@app.route('/api/get_all_users_like_post/<int:user_id>')
 def get_all_users_like_post(user_id):
     data = {
         "user_id": user_id

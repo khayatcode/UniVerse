@@ -62,7 +62,7 @@ const Reg = (props) => {
         formData.append("profile_pic", userInfo.profile_pic);
         console.log("profile_pic", userInfo.profile_pic);
 
-        fetch("/register", {
+        fetch("/api/register", {
             method: "POST",
             body: formData,
         })

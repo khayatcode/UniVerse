@@ -39,15 +39,15 @@ const ViewPost = (props) => {
   }
 
     Promise.all([
-      fetch(`/get_user/${userId}`),
-      fetch(`/get_one_post/${postId}`),
-      fetch(`//get_all_comments_for_post/${postId}`),
-      fetch(`/get_all_follows/${userId}`),
-      fetch(`/get_all_followers/${userId}`),
-      fetch(`/get_all_follows/${sessionId}`),
-      fetch(`/get_all_users_like_post/${sessionId}`),
-      fetch(`/get_user/${sessionId}`),
-      fetch('/get_all_posts_by_user/' + userId),
+      fetch(`/api/get_user/${userId}`),
+      fetch(`/api/get_one_post/${postId}`),
+      fetch(`/api/get_all_comments_for_post/${postId}`),
+      fetch(`/api/get_all_follows/${userId}`),
+      fetch(`/api/get_all_followers/${userId}`),
+      fetch(`/api/get_all_follows/${sessionId}`),
+      fetch(`/api/get_all_users_like_post/${sessionId}`),
+      fetch(`/api/get_user/${sessionId}`),
+      fetch('/api/get_all_posts_by_user/' + userId),
     ])
       .then(responses => Promise.all(responses.map(response => response.json())))
       .then(data => {
@@ -69,7 +69,7 @@ const ViewPost = (props) => {
   }, []);
 
   useEffect(() => {
-    fetch(`/get_all_followers/${userId}`)
+    fetch(`/api/get_all_followers/${userId}`)
       .then(response => response.json())
       .then(data => {
         setAllFollowers(data)
@@ -80,7 +80,7 @@ const ViewPost = (props) => {
   }, [loggedInUserFollows])
 
   useEffect(() => {
-    fetch(`/get_one_post/${postId}`)
+    fetch(`/api/get_one_post/${postId}`)
       .then(response => response.json())
       .then(data => {
         setPostInfo(data)

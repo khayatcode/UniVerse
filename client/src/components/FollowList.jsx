@@ -7,7 +7,7 @@ const FollowList = (props) => {
     const { allFollows, removeFollow, userInfo, sessionId} = props
     const submitDeleteFollowHandler = (e) => {
         e.preventDefault()
-        fetch("/unfollow", {
+        fetch("/api/unfollow", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

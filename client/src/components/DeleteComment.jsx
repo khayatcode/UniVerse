@@ -5,7 +5,7 @@ const DeleteComment = (props) => {
 
     const deleteComment = (e) => {
         e.preventDefault()
-        fetch(`/delete_comment/${commentId}`, {
+        fetch(`/api/delete_comment/${commentId}`, {
             method: "DELETE"
         })
         .then(response => {

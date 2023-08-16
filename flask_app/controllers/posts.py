@@ -11,12 +11,14 @@ import tempfile
 
 UPLOAD_FOLDER = os.path.join(os.getcwd(), 'uploads')
 
+# make all routes start with /api
+
 # @app.route('/uploads/<filename>')
 # def uploaded_file(filename):
 #     return send_from_directory(UPLOAD_FOLDER, filename)
 
 # create a post
-@app.route('/create_post', methods=['POST'])
+@app.route('/api/create_post', methods=['POST'])
 def create_post():
     errors = Post.validate_post(request.form)
     if errors:
@@ -41,13 +43,13 @@ def create_post():
     return jsonify({'success': True, 'post': post}), 201
 
 # get all posts
-@app.route('/get_all_posts')
+@app.route('/api/get_all_posts')
 def get_all_posts():
     posts = Post.get_all()
     return jsonify([post.to_json() for post in posts]), 200
 
 # get all posts by user
-@app.route('/get_all_posts_by_user/<int:user_id>')
+@app.route('/api/get_all_posts_by_user/<int:user_id>')
 def get_all_posts_by_user(user_id):
     data = {
         "user_id": user_id
@@ -56,7 +58,7 @@ def get_all_posts_by_user(user_id):
     return jsonify([post.to_json() for post in posts]), 200
 
 # get one post
-@app.route('/get_one_post/<int:id>')
+@app.route('/api/get_one_post/<int:id>')
 def get_one_post(id):
     data = {
         "id": id
@@ -65,14 +67,14 @@ def get_one_post(id):
     return jsonify(post), 200
 
 # get all post with creator
-@app.route('/get_all_posts_with_creator')
+@app.route('/api/get_all_posts_with_creator')
 def get_all_posts_with_creator():
     posts = Post.get_all_posts_with_creator()
     
     return jsonify([post.to_json() for post in posts]), 200
 
 # update a post
-@app.route('/update_post/<int:post_id>', methods=['POST'])
+@app.route('/api/update_post/<int:post_id>', methods=['POST'])
 def update_post(post_id):
     errors = Post.validate_post(request.json)
     if errors:
@@ -85,7 +87,7 @@ def update_post(post_id):
     return jsonify({'success': True, 'post': post}), 200
 
 # delete a post
-@app.route('/delete_post/<int:id>', methods=['DELETE'])
+@app.route('/api/delete_post/<int:id>', methods=['DELETE'])
 def delete_post(id):
     data = {
         "id": id
@@ -94,7 +96,7 @@ def delete_post(id):
     return jsonify({'success': True, 'message': 'Succesfully deleted post'}), 204
 
 # create a like
-@app.route('/create_like/<int:user_id>/<int:post_id>', methods=['POST'])
+@app.route('/api/create_like/<int:user_id>/<int:post_id>', methods=['POST'])
 def create_like(user_id, post_id):
     data = {
         "user_id": user_id,
@@ -104,7 +106,7 @@ def create_like(user_id, post_id):
     return jsonify({'success': True, 'like': like}), 201
 
 # Delete a like
-@app.route('/delete_like/<int:user_id>/<int:post_id>', methods=['DELETE'])
+@app.route('/api/delete_like/<int:user_id>/<int:post_id>', methods=['DELETE'])
 def delete_like(user_id, post_id):
     data = {
         "user_id": user_id,

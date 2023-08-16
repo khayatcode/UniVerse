@@ -32,12 +32,12 @@ const Dashboard = (props) => {
       return navigate('/login')
     } else {
       Promise.all([
-        fetch(`/get_user/${sessionId}`),
-        fetch(`/get_all_follows/${sessionId}`),
-        fetch(`/get_all_followers/${sessionId}`),
-        fetch('/get_all_posts_with_creator'),
-        fetch(`/get_all_users_like_post/${sessionId}`),
-        fetch('/get_all_posts_by_user/' + sessionId),
+        fetch(`/api/get_user/${sessionId}`),
+        fetch(`/api/get_all_follows/${sessionId}`),
+        fetch(`/api/get_all_followers/${sessionId}`),
+        fetch('/api/get_all_posts_with_creator'),
+        fetch(`/api/get_all_users_like_post/${sessionId}`),
+        fetch('/api/get_all_posts_by_user/' + sessionId),
       ])
         .then(responses => Promise.all(responses.map(response => response.json())))
         .then(data => {
@@ -58,7 +58,7 @@ const Dashboard = (props) => {
 
   useEffect(() => {
       console.log("fetching all posts")
-      fetch('/get_all_posts_with_creator')
+      fetch('/api/get_all_posts_with_creator')
         .then(data => data.json())
         .then(data => {
           setAllPosts(data)
@@ -70,7 +70,7 @@ const Dashboard = (props) => {
 
   useEffect(() => {
       console.log("fetching all follows")
-      fetch('/get_all_posts_by_user/' + sessionId)
+      fetch('/api/get_all_posts_by_user/' + sessionId)
         .then(response => response.json())
         .then(data => {
           setLoggedInUserPosts(data)

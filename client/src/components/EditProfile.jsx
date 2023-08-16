@@ -33,7 +33,7 @@ const EditProfile = (props) => {
             console.log("redirecting to login")
             return navigate('/login')
         }
-        fetch(`/get_user/${sessionId}`)
+        fetch(`/api/get_user/${sessionId}`)
             .then(response => response.json())
             .then(data => {
                 console.log("data in get_user", data)
@@ -48,7 +48,7 @@ const EditProfile = (props) => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        fetch("/update_user/" + sessionId, {
+        fetch("/api/update_user/" + sessionId, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
