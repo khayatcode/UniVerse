@@ -3,7 +3,9 @@ import { useNavigate, Link } from 'react-router-dom'
 import Cookies from 'js-cookie';
 import Galaxy from '../images/galaxy.jpg'
 import MilkyWay from '../images/milkyWay.jpeg'
+import { config } from '../Constants'
 
+const  SERVER_URL  = config.url;
 
 const Log = (props) => {
     const { sessionId, setSessionId } = props
@@ -33,7 +35,7 @@ const Log = (props) => {
     const submitLog = (e) => {
         e.preventDefault()
         
-        fetch("/api/login", {
+        fetch(`${SERVER_URL}/api/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

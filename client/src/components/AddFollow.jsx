@@ -1,5 +1,8 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
+import { config } from '../Constants'
+
+const SERVER_URL = config.url;
 
 const AddFollow = ({ sessionId, post, loggedInUserFollows, removeFollow , addFollow}) => {
 
@@ -8,7 +11,7 @@ const AddFollow = ({ sessionId, post, loggedInUserFollows, removeFollow , addFol
 
     const submitAddFollowHandler = (e) => {
         e.preventDefault()
-        fetch("/api/follow_user", {
+        fetch(`${SERVER_URL}/api/follow_user`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -35,7 +38,7 @@ const AddFollow = ({ sessionId, post, loggedInUserFollows, removeFollow , addFol
 
     const submitDeleteFollowHandler = (e) => {
         e.preventDefault()
-        fetch("/api/unfollow", {
+        fetch(`${SERVER_URL}/api/unfollow`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

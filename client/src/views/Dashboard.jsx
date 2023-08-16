@@ -10,6 +10,9 @@ import FollowList from '../components/FollowList'
 import Cookies from 'js-cookie';
 import { Followers } from '../components/Followers'
 import MilkyWay from '../images/milkyWay.jpeg'
+import { config } from '../Constants'
+
+const SERVER_URL = config.url;
 
 // Do a welcome page with the person name
 const Dashboard = (props) => {
@@ -32,12 +35,12 @@ const Dashboard = (props) => {
       return navigate('/login')
     } else {
       Promise.all([
-        fetch(`/api/get_user/${sessionId}`),
-        fetch(`/api/get_all_follows/${sessionId}`),
-        fetch(`/api/get_all_followers/${sessionId}`),
-        fetch('/api/get_all_posts_with_creator'),
-        fetch(`/api/get_all_users_like_post/${sessionId}`),
-        fetch('/api/get_all_posts_by_user/' + sessionId),
+        fetch(`${SERVER_URL}/api/get_user/${sessionId}`),
+        fetch(`${SERVER_URL}/api/get_all_follows/${sessionId}`),
+        fetch(`${SERVER_URL}/api/get_all_followers/${sessionId}`),
+        fetch(`${SERVER_URL}/api/get_all_posts_with_creator`),
+        fetch(`${SERVER_URL}/api/get_all_users_like_post/${sessionId}`),
+        fetch(`${SERVER_URL}/api/get_all_posts_by_user/${sessionId}`),
       ])
         .then(responses => Promise.all(responses.map(response => response.json())))
         .then(data => {
@@ -57,27 +60,27 @@ const Dashboard = (props) => {
   }, []);
 
   useEffect(() => {
-      console.log("fetching all posts")
-      fetch('/api/get_all_posts_with_creator')
-        .then(data => data.json())
-        .then(data => {
-          setAllPosts(data)
-        })
-        .catch(err => {
-          console.log(err);
-        });
+    console.log("fetching all posts")
+    fetch(`${SERVER_URL}/api/get_all_posts_with_creator`)
+      .then(data => data.json())
+      .then(data => {
+        setAllPosts(data)
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }, [loggedInUserLikes]);
 
   useEffect(() => {
-      console.log("fetching all follows")
-      fetch('/api/get_all_posts_by_user/' + sessionId)
-        .then(response => response.json())
-        .then(data => {
-          setLoggedInUserPosts(data)
-        })
-        .catch(err => {
-          console.log(err);
-        });
+    console.log("fetching all follows")
+    fetch(`${SERVER_URL}/api/get_all_posts_by_user/` + sessionId)
+      .then(response => response.json())
+      .then(data => {
+        setLoggedInUserPosts(data)
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }, [allPosts]);
 
 

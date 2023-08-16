@@ -5,6 +5,9 @@ import NavBar from './NavBar'
 import Cookies from 'js-cookie';
 import Advertisement from './Advertisement';
 import MilkyWay from '../images/milkyWay.jpeg'
+import { config } from '../Constants'
+
+const SERVER_URL = config.url;
 
 const EditProfile = (props) => {
     const { sessionId, setSessionId } = props
@@ -33,7 +36,7 @@ const EditProfile = (props) => {
             console.log("redirecting to login")
             return navigate('/login')
         }
-        fetch(`/api/get_user/${sessionId}`)
+        fetch(`${SERVER_URL}/api/get_user/${sessionId}`)
             .then(response => response.json())
             .then(data => {
                 console.log("data in get_user", data)
@@ -48,7 +51,7 @@ const EditProfile = (props) => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        fetch("/api/update_user/" + sessionId, {
+        fetch(`${SERVER_URL}/api/update_user/` + sessionId, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

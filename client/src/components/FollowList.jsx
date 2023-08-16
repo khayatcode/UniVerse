@@ -2,12 +2,15 @@ import React from 'react'
 // import Link
 import { Link } from 'react-router-dom'
 import "../styles/Follow.css"
+import { config } from '../Constants'
+
+const SERVER_URL = config.url;
 
 const FollowList = (props) => {
     const { allFollows, removeFollow, userInfo, sessionId} = props
     const submitDeleteFollowHandler = (e) => {
         e.preventDefault()
-        fetch("/api/unfollow", {
+        fetch(`${SERVER_URL}/api/unfollow`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

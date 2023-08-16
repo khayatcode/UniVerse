@@ -1,6 +1,9 @@
 import React from 'react'
 import { useState } from 'react'
 import "../styles/CreatePost.css"
+import { config } from '../Constants'
+
+const SERVER_URL = config.url;
 
 const AddComment = (props) => {
     const {postId, sessionId, loggedInUserData, addCommentToPost} = props
@@ -23,7 +26,7 @@ const AddComment = (props) => {
 
     const submitCommentHandler = (e) => {
         e.preventDefault()
-        fetch(`/api/create_comment`, {
+        fetch(`${SERVER_URL}/api/create_comment`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

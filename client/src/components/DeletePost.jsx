@@ -1,11 +1,14 @@
 import React from 'react'
+import { config } from '../Constants'
+
+const SERVER_URL = config.url;
 
 const DeletePost = (props) => {
     const {postId, successCallback} = props
 
     const deletePost = (e) => {
         e.preventDefault()
-        fetch("/api/delete_post/" + postId, {
+        fetch(`${SERVER_URL}/api/delete_post/` + postId, {
             method: "DELETE"
         })
         .then(response => {

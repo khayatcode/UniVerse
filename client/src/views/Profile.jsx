@@ -10,6 +10,9 @@ import { Followers } from '../components/Followers'
 import Cookies from 'js-cookie';
 import CreatePost from '../components/CreatePost'
 import MilkyWay from '../images/milkyWay.jpeg'
+import { config } from '../Constants'
+
+const SERVER_URL = config.url;
 
 
 const Profile = (props) => {
@@ -41,12 +44,12 @@ const Profile = (props) => {
         return navigate('/login')
     }
   Promise.all([
-    fetch(`/api/get_user/${userId}`),
-    fetch('/api/get_all_posts_by_user/' + userId),
-    fetch(`/api/get_all_follows/${userId}`),
-    fetch(`/api/get_all_follows/${sessionId}`),
-    fetch(`/api/get_all_followers/${userId}`),
-    fetch(`/api/get_all_users_like_post/${sessionId}`),
+    fetch(`${SERVER_URL}/api/get_user/${userId}`),
+    fetch(`${SERVER_URL}/api/get_all_posts_by_user/` + userId),
+    fetch(`${SERVER_URL}/api/get_all_follows/${userId}`),
+    fetch(`${SERVER_URL}/api/get_all_follows/${sessionId}`),
+    fetch(`${SERVER_URL}/api/get_all_followers/${userId}`),
+    fetch(`${SERVER_URL}/api/get_all_users_like_post/${sessionId}`),
   ])
   .then(responses => Promise.all(responses.map(response => response.json())))
   .then(data => {
@@ -67,8 +70,8 @@ const Profile = (props) => {
     // create a useEffect, everytime you setLoggedInUserFollows, you update the state of allFollowers
     useEffect(() => {
         Promise.all([
-            fetch(`/api/get_all_followers/${userId}`),
-            fetch(`/api/get_all_follows/${userId}`)
+            fetch(`${SERVER_URL}/api/get_all_followers/${userId}`),
+            fetch(`${SERVER_URL}/api/get_all_follows/${userId}`)
         ])
         .then(responses => Promise.all(responses.map(response => response.json())))
         .then(data => {
@@ -80,7 +83,7 @@ const Profile = (props) => {
     }, [loggedInUserFollows])
 
     useEffect(() => {
-        fetch('/api/get_all_posts_by_user/' + userId)
+        fetch(`${SERVER_URL}/api/get_all_posts_by_user/` + userId)
         .then(response => response.json())
         .then(data => {
             setAllPosts(data)

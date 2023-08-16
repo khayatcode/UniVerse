@@ -1,11 +1,14 @@
 import React from 'react'
+import { config } from '../Constants'
+
+const SERVER_URL = config.url;
 
 const LikeButton = (props) => {
     const {post, sessionId, loggedInUserLikes, addLike, removeLike} = props
 
     const addLikeHandler = (e) => {
         e.preventDefault()
-        fetch(`/api/create_like/${sessionId}/${post.id}`, {
+        fetch(`${SERVER_URL}/api/create_like/${sessionId}/${post.id}`, {
             method: "POST"
         })
         .then(response => response.json())
@@ -24,7 +27,7 @@ const LikeButton = (props) => {
 
     const deleteLikeHandler = (e) => {
         e.preventDefault()
-        fetch(`/api/delete_like/${sessionId}/${post.id}`, { 
+        fetch(`${SERVER_URL}/api/delete_like/${sessionId}/${post.id}`, { 
             method: "DELETE"
         })
         .then(response => response.json())
@@ -40,12 +43,6 @@ const LikeButton = (props) => {
             console.log("There was an error deleting the Like")
         })
     }
-
-
-
-
-
-
   return (
     <div>
         {loggedInUserLikes.find(like => like.post_id == post.id) ?

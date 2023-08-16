@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import MilkyWay from '../images/milkyWay.jpeg'
 import Cookies from "js-cookie";
+import { config } from '../Constants'
+
+const SERVER_URL = config.url;
 
 
 // Create a Registration Form Component using Bootstrap that will allow users to put in their first_name, last_name, user_name, location, occupation, email, password, and confirm_password.
@@ -62,7 +65,7 @@ const Reg = (props) => {
         formData.append("profile_pic", userInfo.profile_pic);
         console.log("profile_pic", userInfo.profile_pic);
 
-        fetch("/api/register", {
+        fetch(`${SERVER_URL}/api/register`, {
             method: "POST",
             body: formData,
         })

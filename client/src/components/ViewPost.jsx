@@ -12,6 +12,9 @@ import DeletePost from './DeletePost';
 import MilkyWay from '../images/milkyWay.jpeg'
 import { Link } from 'react-router-dom';
 import "../styles/AllPosts.css"
+import { config } from '../Constants'
+
+const SERVER_URL = config.url;
 
 
 
@@ -39,15 +42,15 @@ const ViewPost = (props) => {
   }
 
     Promise.all([
-      fetch(`/api/get_user/${userId}`),
-      fetch(`/api/get_one_post/${postId}`),
-      fetch(`/api/get_all_comments_for_post/${postId}`),
-      fetch(`/api/get_all_follows/${userId}`),
-      fetch(`/api/get_all_followers/${userId}`),
-      fetch(`/api/get_all_follows/${sessionId}`),
-      fetch(`/api/get_all_users_like_post/${sessionId}`),
-      fetch(`/api/get_user/${sessionId}`),
-      fetch('/api/get_all_posts_by_user/' + userId),
+      fetch(`${SERVER_URL}/api/get_user/${userId}`),
+      fetch(`${SERVER_URL}/api/get_one_post/${postId}`),
+      fetch(`${SERVER_URL}/api/get_all_comments_for_post/${postId}`),
+      fetch(`${SERVER_URL}/api/get_all_follows/${userId}`),
+      fetch(`${SERVER_URL}/api/get_all_followers/${userId}`),
+      fetch(`${SERVER_URL}/api/get_all_follows/${sessionId}`),
+      fetch(`${SERVER_URL}/api/get_all_users_like_post/${sessionId}`),
+      fetch(`${SERVER_URL}/api/get_user/${sessionId}`),
+      fetch(`${SERVER_URL}/api/get_all_posts_by_user/` + userId),
     ])
       .then(responses => Promise.all(responses.map(response => response.json())))
       .then(data => {
@@ -69,7 +72,7 @@ const ViewPost = (props) => {
   }, []);
 
   useEffect(() => {
-    fetch(`/api/get_all_followers/${userId}`)
+    fetch(`${SERVER_URL}/api/get_all_followers/${userId}`)
       .then(response => response.json())
       .then(data => {
         setAllFollowers(data)
@@ -80,7 +83,7 @@ const ViewPost = (props) => {
   }, [loggedInUserFollows])
 
   useEffect(() => {
-    fetch(`/api/get_one_post/${postId}`)
+    fetch(`${SERVER_URL}/api/get_one_post/${postId}`)
       .then(response => response.json())
       .then(data => {
         setPostInfo(data)

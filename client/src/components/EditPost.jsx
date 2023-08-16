@@ -7,6 +7,9 @@ import DisplaySinglePost from './DisplaySinglePost';
 import Cookies from 'js-cookie';
 import MilkyWay from '../images/milkyWay.jpeg'
 import "../styles/CreatePost.css"
+import { config } from '../Constants'
+
+const SERVER_URL = config.url;
 
 
 
@@ -42,12 +45,12 @@ const EditPost = (props) => {
       return navigate('/login')
   }
     Promise.all([
-      fetch(`/api/get_user/${sessionId}`),
-      fetch(`/api/get_one_post/${postId}`),
-      fetch(`/api/get_all_users_like_post/${sessionId}`),
-      fetch(`/api/get_all_follows/${sessionId}`),
-      fetch(`/api/get_all_followers/${sessionId}`),
-      fetch('/api/get_all_posts_by_user/' + sessionId),
+      fetch(`${SERVER_URL}/api/get_user/${sessionId}`),
+      fetch(`${SERVER_URL}/api/get_one_post/${postId}`),
+      fetch(`${SERVER_URL}/api/get_all_users_like_post/${sessionId}`),
+      fetch(`${SERVER_URL}/api/get_all_follows/${sessionId}`),
+      fetch(`${SERVER_URL}/api/get_all_followers/${sessionId}`),
+      fetch(`${SERVER_URL}/api/get_all_posts_by_user/` + sessionId),
     ])
     .then(responses => Promise.all(responses.map(response => response.json())))
     .then(data => {
@@ -67,7 +70,7 @@ const EditPost = (props) => {
   }, []);
 
   useEffect(() => {
-    fetch(`/api/get_one_post/${postId}`)
+    fetch(`${SERVER_URL}/api/get_one_post/${postId}`)
     .then(response => response.json())
     .then(data => {
       setPostInfo(data)
@@ -85,7 +88,7 @@ const EditPost = (props) => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    fetch("/api/update_post/" + postId, {
+    fetch(`${SERVER_URL}/api/update_post/` + postId, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

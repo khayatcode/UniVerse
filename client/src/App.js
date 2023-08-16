@@ -11,25 +11,18 @@ import EditPost from './components/EditPost';
 import ViewPost from './components/ViewPost';
 import NotFound from './components/NotFound';
 import { useNavigate } from 'react-router-dom';
+import { config } from './Constants';
 
 
 function App() {
   const [sessionId, setSessionId] = useState(Cookies.get("sessionId") || "");
-
+  const SERVER_URL = config.url;
+  console.log("URL:", SERVER_URL);
   useEffect(() => {
     console.log("sessionId changed:", sessionId);
     Cookies.set("sessionId", sessionId);
   }, [sessionId]);
 
-  //  to remove a cookie
-  //  Cookies.remove("sessionId");
-
-  // to check if a cookie exists
-  // if (Cookies.get("sessionId")) {
-  //   console.log("cookie exists");
-  // } else {
-  //   console.log("cookie does not exist");
-  // }
 
   return (
     <div className="App">

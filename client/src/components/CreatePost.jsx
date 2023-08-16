@@ -2,6 +2,9 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import "../styles/CreatePost.css"
+import { config } from '../Constants'
+
+const SERVER_URL = config.url;
 
 const CreatePost = (props) => {
     const {sessionId, allPosts, setAllPosts, userInfo, navigateFunction, postRef} = props
@@ -32,7 +35,7 @@ const CreatePost = (props) => {
         formData.append('likes', postInfo.likes)
         formData.append('user_id', postInfo.user_id)
         formData.append('creator', postInfo.creator)
-        fetch("/api/create_post", {
+        fetch(`${SERVER_URL}/api/create_post`, {
             method: "POST",
             body: formData
         })
