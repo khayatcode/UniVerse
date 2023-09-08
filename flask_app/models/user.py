@@ -5,6 +5,8 @@ import re
 from flask_app.models.base_model import BaseModel
 import json
 
+# Nano
+
 password_regex = re.compile(r'^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$')
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
@@ -154,7 +156,7 @@ class User(BaseModel):
         errors = {}
         query = "SELECT * FROM users WHERE email = %(email)s;"
         # data is a dictionary that will be passed into the save method from server.py
-        result = connectToMySQL('belt_exam').query_db( query, data)
+        result = connectToMySQL('UniVerse').query_db( query, data)
         print("result: ", result)
         if len(data['first_name']) < 2:
             errors['first_name'] = "First name must be at least 2 characters."

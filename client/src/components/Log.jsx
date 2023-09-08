@@ -5,7 +5,7 @@ import Galaxy from '../images/galaxy.jpg'
 import MilkyWay from '../images/milkyWay.jpeg'
 import { config } from '../Constants'
 
-const  SERVER_URL  = config.url;
+const SERVER_URL = config.url;
 
 const Log = (props) => {
     const { sessionId, setSessionId } = props
@@ -34,7 +34,7 @@ const Log = (props) => {
     }
     const submitLog = (e) => {
         e.preventDefault()
-        
+
         fetch(`${SERVER_URL}/api/login`, {
             method: "POST",
             headers: {
@@ -66,7 +66,7 @@ const Log = (props) => {
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, []);
+    }, []);
 
 
 
@@ -75,7 +75,7 @@ const Log = (props) => {
         <div>
             {/* <div className="row p-2 text-centre" style={{backgroundColor: "#483D8B" }}>
             </div> */}
-            <div style={{backgroundImage: `url(${MilkyWay})`, minHeight: "100vh" }}>
+            <div style={{ backgroundImage: `url(${MilkyWay})`, minHeight: "100vh" }}>
                 <h1 className='' style={{ color: "white", backgroundColor: 'transparent', fontWeight: 300, padding: '35px' }}>UniVerse</h1>
                 <div className="d-flex justify-content-center align-items-center" style={{ marginTop: '100px' }}>
                     <div className="col-8 row rounded-3 p-4" style={{ backgroundColor: "#f2f2f2" }}>
@@ -129,10 +129,17 @@ const Log = (props) => {
                             </div>
                             <div className="row mb-3">
                                 <div className="col">
-                                    <Link to="/register" style={{color: "#483D8B"}}>Don't have an account? Register here.</Link>
+                                    <Link to="/register" style={{ color: "#483D8B" }}>Don't have an account? Register here.</Link>
                                 </div>
                             </div>
                         </form>
+                        {/* Write demo account */}
+                        <div className="row mb-3">
+                            <div className="col">
+                                <p className="text-muted small">Demo Account: <br /> Email: yoda123@hotmail.com
+                                    <br /> Password: Test12345</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

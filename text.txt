@@ -1,16 +1,16 @@
-Major Big:
-    * Edit profile & posts (DONE)
-    * Be able to like posts (DONE)
-    * Be able to add comments in each post (DONE)
-    * Profile Picture (Done)
-    * Style css
+To update the code and start the server - Please use the command:
+update: npn run build
+Frontend: nohup bash -c "serve -s build" &
+Backend:
+source universe/bin/activate
+nohup bash -c "python server.py" &
 
+after to exit the terminal do this command:
+exit
 
-Minor:
-    * Dark mode
-
-If I have time:
-    * Message other users
+To kill the server - Please use the command:
+killall python
+killall node
 
 
 

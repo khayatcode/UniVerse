@@ -24,6 +24,10 @@ def uploaded_file(filename):
 @app.route('/api/register', methods=['POST'])
 def register():
     errors = User.validate_user(request.form)
+    print("We are in register")
+    if 'profile_pic' in request.form:
+        print("profile pic is not there")
+        errors['profile_pic'] = "Please upload a profile picture"
     if errors:
         return jsonify(errors), 400
 
